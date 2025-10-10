@@ -1,0 +1,6 @@
+/* src/app/globals.css */
+@import "tailwindcss";
+
+html { scroll-behavior: smooth; }
+:focus-visible { outline: 2px dashed #f59e0b; outline-offset: 2px; }
+::selection { background: rgba(252, 211, 77, 0.35); color: #111827; }
