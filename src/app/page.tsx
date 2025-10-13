@@ -175,32 +175,39 @@ function Header() {
 
   return (
     <motion.header
-      className="sticky top-0 z-40 bg-white/60 backdrop-blur-md"
+      className="sticky top-0 z-40 bg-transparent transition-all duration-500"
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.35 }}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link href="#" className="text-lg font-semibold tracking-tight">
+        <Link href="#" className="text-lg font-semibold tracking-tight text-stone-900">
           Jacob Robinson
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6 text-sm">
+        <nav className="hidden md:flex items-center gap-6 text-sm text-stone-900">
           <HoverLink href="#about">About</HoverLink>
           <HoverLink href="#speaking">Keynotes</HoverLink>
           <HoverLink href="#gallery">Community</HoverLink>
+
+          {/* Book Jacob Button with bottom-fill animation */}
           <a
-            className="rounded-full border-2 border-stone-900 px-4 py-2 font-medium transition-colors hover:bg-stone-900 hover:text-white"
             href="#book"
+            className="relative inline-flex items-center justify-center rounded-full border-2 border-stone-900 px-4 py-2 font-medium overflow-hidden group"
           >
-            Book Jacob
+            <span className="relative z-10 text-stone-900 transition-colors duration-300 group-hover:text-white">
+              Book Jacob
+            </span>
+            <span
+              className="absolute inset-0 bg-stone-900 scale-y-0 origin-bottom transition-transform duration-700 ease-out group-hover:scale-y-100"
+            />
           </a>
         </nav>
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden flex items-center"
+          className="md:hidden flex items-center text-stone-900"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
@@ -215,25 +222,25 @@ function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 bg-[#FFF6E5] flex flex-col justify-between px-8 py-8 text-center md:hidden"
+            className="fixed inset-0 z-50 bg-white text-stone-900 flex flex-col justify-between px-8 py-8 text-center md:hidden"
           >
             {/* Header row inside menu */}
             <div className="flex justify-between items-center">
               <Link
                 href="#"
                 onClick={() => setMenuOpen(false)}
-                className="text-lg font-semibold text-amber-800"
+                className="text-lg font-semibold text-stone-900"
               >
                 Jacob Robinson
               </Link>
               <X
-                className="h-7 w-7 text-amber-800"
+                className="h-7 w-7 text-stone-900"
                 onClick={() => setMenuOpen(false)}
               />
             </div>
 
             {/* Navigation Links */}
-            <div className="flex flex-col items-center justify-center flex-grow space-y-6 text-amber-800">
+            <div className="flex flex-col items-center justify-center flex-grow space-y-6 text-stone-900">
               <a href="#about" onClick={() => setMenuOpen(false)} className="text-2xl font-medium">
                 About
               </a>
@@ -248,14 +255,19 @@ function Header() {
               </a>
             </div>
 
-            {/* Footer button */}
+            {/* Footer button with slower bottom-fill animation */}
             <div className="pb-8">
               <a
                 href="#book"
                 onClick={() => setMenuOpen(false)}
-                className="block mx-auto w-full max-w-xs rounded-full border-2 border-amber-800 text-amber-800 py-3 text-lg font-semibold hover:bg-amber-800 hover:text-white transition-colors"
+                className="relative block mx-auto w-full max-w-xs rounded-full border-2 border-stone-900 text-stone-900 py-3 text-lg font-semibold overflow-hidden group"
               >
-                Book Jacob
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+                  Book Jacob
+                </span>
+                <span
+                  className="absolute inset-0 bg-stone-900 scale-y-0 origin-bottom transition-transform duration-700 ease-out group-hover:scale-y-100"
+                />
               </a>
             </div>
           </motion.nav>
