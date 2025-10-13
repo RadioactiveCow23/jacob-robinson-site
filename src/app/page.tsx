@@ -280,22 +280,83 @@ function Header() {
 /* =================== HERO =================== */
 function Hero() {
   const { scrollY } = useScroll();
-  const imgY = useTransform(scrollY, [0, 400], [0, -40]);
+  const imgY = useTransform(scrollY, [0, 400], [0, -25]);
 
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-x-0 top-0 -z-10 h-[90vh] bg-gradient-to-b from-[#FFEFC6] to-white sm:rounded-b-[4rem]" />
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 pt-16 sm:pt-20 md:grid-cols-2">
-        <div className="pb-12 sm:pb-24 text-center md:text-left">
-        <AnimatedHeadline
+      {/* Gradient background */}
+      <div className="absolute inset-x-0 top-0 -z-10 h-[92vh] bg-gradient-to-b from-[#FFEFC6] to-white sm:rounded-b-[4rem]" />
+
+      <div
+        className="
+          mx-auto grid max-w-7xl items-center gap-10 px-6
+          pt-[5rem] sm:pt-[6rem] md:pt-[6.5rem] lg:pt-[7rem]
+          md:grid-cols-2
+        "
+      >
+        {/* IMAGE */}
+        <motion.div
+          style={{ y: imgY }}
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="
+            relative flex justify-center md:justify-end
+            order-1 md:order-2
+            -mt-[6rem] sm:-mt-[7rem] md:-mt-[7.5rem] lg:-mt-[8rem]
+          "
+        >
+          <div
+            className="
+              relative
+              w-[210%] sm:w-[180%] md:w-[140%] lg:w-[115%]
+              h-[calc(100vh-8rem)] sm:h-[calc(100vh-9rem)] md:h-[calc(100vh-10rem)]
+              flex items-start
+            "
+          >
+            <Image
+              src="/jacob1.png"
+              alt="Jacob Robinson"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw,
+                      (max-width: 1200px) 70vw,
+                      60vw"
+              className="
+                object-contain drop-shadow-2xl
+                scale-[2.7] sm:scale-[2.3] md:scale-[2.0] lg:scale-[1.8]
+                translate-y-[0%] sm:translate-y-[-1%] md:translate-y-[-2%] lg:translate-y-[-3%]
+              "
+            />
+          </div>
+        </motion.div>
+
+        {/* TEXT */}
+        <div
+          className="
+            relative z-10 order-2 md:order-1
+            text-center md:text-left
+            mt-[-2rem] sm:mt-[-1rem] md:mt-0
+            flex flex-col items-center md:items-start
+          "
+        >
+          <AnimatedHeadline
             text="HEAR FROM JACOB"
-            className="text-3xl sm:text-5xl md:text-6xl lg:text-[6.5rem] leading-[0.95] font-extrabold tracking-tight text-stone-900"
+            className="
+              text-4xl sm:text-5xl md:text-6xl lg:text-[6.5rem]
+              leading-[1.0] font-extrabold tracking-tight text-stone-900
+            "
           />
+
           <motion.p
             variants={fade}
             initial="hidden"
             animate="show"
-            className="mt-6 max-w-xl text-stone-900 text-base sm:text-lg mx-auto md:mx-0"
+            className="
+              mt-6 max-w-xl text-stone-900
+              text-base sm:text-lg md:text-xl
+              mx-auto md:mx-0
+            "
           >
             Jacob helps audiences—from students to executives—take bold action,
             lead with purpose, and turn adversity into momentum.
@@ -305,46 +366,35 @@ function Hero() {
             variants={stagger}
             initial="hidden"
             animate="show"
-            className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-10"
+            className="
+              mt-8 flex flex-wrap items-center justify-center md:justify-start gap-8
+            "
           >
             <MagneticButton
               href="#book"
-              className="inline-flex items-center rounded-full bg-stone-900 px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_24px_rgba(0,0,0,0.25)]"
+              className="
+                inline-flex items-center rounded-full bg-stone-900
+                px-6 py-3 text-sm sm:text-base font-semibold text-white
+                shadow-[0_12px_24px_rgba(0,0,0,0.25)]
+              "
             >
-              <Mail className="mr-2 h-4 w-4" /> Book Jacob
+              <Mail className="mr-2 h-4 w-4 sm:h-5 sm:w-5" /> Book Jacob
             </MagneticButton>
+
             <motion.a
               href="#video"
               className="inline-flex items-center text-stone-900 hover:text-stone-700"
               whileHover={{ x: 3 }}
             >
-              <Play className="mr-2 h-4 w-4" /> Watch clip
+              <Play className="mr-2 h-4 w-4 sm:h-5 sm:w-5" /> Watch clip
             </motion.a>
           </motion.div>
         </div>
-
-        <motion.div
-          style={{ y: imgY }}
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="relative flex justify-center md:justify-end"
-          >
-          <div className="relative w-[160%] md:w-[130%] lg:w-[110%] h-[130vh] -mt-48 -mb-32 overflow-visible">
-            <Image
-              src="/jacob1.png"
-              alt="Jacob Robinson"
-              fill
-              className="object-contain drop-shadow-2xl scale-[1.8] md:scale-[2] lg:scale-[2.2] translate-y-[-6%]"
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-            />
-          </div>
-        </motion.div>
       </div>
     </section>
   );
 }
+
 
 /* =================== LOGOS (font and spacing responsive) =================== */
 function Logos() {
@@ -547,33 +597,57 @@ function Gallery() {
   ];
 
   return (
-    <section id="gallery" className="mx-auto max-w-7xl px-6 py-24 overflow-hidden">
+    <section
+      id="gallery"
+      className="mx-auto max-w-7xl px-6 py-24 overflow-hidden"
+    >
       <motion.div className="text-center">
-        <motion.h2 variants={fadeSlow} className="text-4xl font-bold">
+        <motion.h2
+          variants={fadeSlow}
+          className="text-4xl font-bold text-stone-900"
+        >
           Community
         </motion.h2>
-        <motion.p variants={fade} className="mt-4 max-w-2xl mx-auto text-stone-600">
-          “Jacob’s message brings people together — inspiring boldness, purpose, and
-          connection.”
+
+        <motion.p
+          variants={fade}
+          className="mt-4 max-w-2xl mx-auto text-stone-600"
+        >
+          “Jacob’s message brings people together — inspiring boldness, purpose,
+          and connection.”
         </motion.p>
 
+        {/* Responsive grid for images */}
         <div className="mt-12 relative w-full flex justify-center">
-          <div className="flex gap-6 overflow-hidden">
+          <div
+            className="
+              grid gap-6
+              grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+              w-full max-w-6xl
+            "
+          >
             <AnimatePresence mode="popLayout">
               {currentImages.map((file, i) => (
                 <motion.div
                   key={file}
-                  className="relative w-[350px] h-[240px] overflow-hidden rounded-3xl shadow-lg"
-                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  className="
+                    relative
+                    w-full h-[250px] sm:h-[260px] md:h-[280px] lg:h-[300px]
+                    overflow-hidden rounded-3xl shadow-lg
+                  "
+                  initial={{ opacity: 0, scale: 0.9, y: 25 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  exit={{ opacity: 0, scale: 0.9, y: -25 }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
                 >
                   <Image
                     src={`/${file}`}
                     alt={`Community photo ${i + 1}`}
                     fill
-                    className="object-cover hover:scale-105 transition-transform duration-500 ease-out"
+                    className="
+                      object-cover hover:scale-105
+                      transition-transform duration-500 ease-out
+                    "
                   />
                 </motion.div>
               ))}
@@ -585,46 +659,121 @@ function Gallery() {
   );
 }
 
-/* =================== CTA =================== */
+/* =================== CTA (Minimalist Book Jacob + Testimonials) =================== */
 function CTA() {
+  const testimonials = [
+    {
+      quote:
+        "Every time I’ve invited him to speak—whether to teams, leaders, or organizations—he delivers far beyond expectations.",
+    },
+    {
+      quote:
+        "You could feel his passion and purpose in every moment he spoke. Our group walked away inspired and ready to think bigger.",
+    },
+    {
+      quote:
+        "He brings the audience from tears to laughter as he shares his leadership journey—including presenting on Shark Tank.",
+    },
+  ];
+
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % testimonials.length);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+
+  const currentTestimonial = testimonials[index];
+
   return (
     <section
       id="book"
-      className="mx-auto max-w-5xl px-6 py-24 text-center rounded-[3rem] bg-gradient-to-br from-[#FFF3D4] to-[#FFEFC6]"
+      className="
+        relative mx-auto max-w-5xl px-6 py-24 text-center
+        bg-white rounded-[3rem] shadow-[0_12px_40px_rgba(0,0,0,0.06)]
+        border border-stone-100
+      "
     >
+      {/* Section Heading */}
       <motion.h2
         variants={fadeSlow}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="text-4xl font-bold tracking-tight"
+        className="text-3xl sm:text-4xl font-semibold tracking-tight text-stone-900"
       >
         Book Jacob for Your Next Event
       </motion.h2>
-      <motion.p
+
+      {/* <motion.p
         variants={fade}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="mt-4 text-stone-700 max-w-2xl mx-auto"
+        className="mt-3 text-stone-600 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed"
       >
-        Whether it’s a conference, company meeting, or student event, Jacob’s
-        story will inspire your audience to take bold action.
-      </motion.p>
+        Jacob’s keynotes move audiences from reflection to action—blending
+        storytelling, humor, and leadership insights that leave lasting impact.
+      </motion.p> */}
+
+      {/* Testimonial Section */}
+      <motion.div
+        key={currentTestimonial.quote}
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -15 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+        className="mt-12 max-w-3xl mx-auto"
+      >
+        <blockquote className="text-lg sm:text-xl italic text-stone-800 leading-relaxed">
+          “{currentTestimonial.quote}”
+        </blockquote>
+      </motion.div>
+
+      {/* Book Button */}
       <motion.div
         variants={fade}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="mt-8"
+        className="mt-12"
       >
-        <MagneticButton
-          href="mailto:book@jacobrobinson.com"
-          className="inline-flex items-center rounded-full bg-stone-900 px-8 py-4 text-lg font-semibold text-white shadow-lg"
+        <a
+          href="mailto:jacob@digworldnation.com"
+          className="
+            relative inline-flex items-center justify-center
+            rounded-full border-2 border-stone-900 px-8 py-3
+            text-lg font-medium text-stone-900 overflow-hidden group
+            transition-transform duration-300 hover:scale-105
+          "
         >
-          <Mail className="mr-3 h-5 w-5" /> Contact Jacob
-        </MagneticButton>
+          <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+            Book Now
+          </span>
+          <span
+            className="
+              absolute inset-0 bg-stone-900 scale-y-0 origin-bottom
+              transition-transform duration-700 ease-out group-hover:scale-y-100
+            "
+          />
+        </a>
       </motion.div>
+
+      {/* Testimonial Dots */}
+      <div className="flex justify-center gap-3 mt-8">
+        {testimonials.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
+            className={`
+              h-2.5 w-2.5 rounded-full transition-all duration-300
+              ${i === index ? "bg-stone-900 scale-110" : "bg-stone-400"}
+            `}
+          />
+        ))}
+      </div>
     </section>
   );
 }
