@@ -13,6 +13,7 @@ import {
 } from "framer-motion";
 import { Mail, Play, Menu, X } from "lucide-react";
 import { easeOut } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /* -------------------- Animation helpers -------------------- */
 const ease = easeOut;
@@ -538,7 +539,30 @@ function Speaking() {
 }
 
 /* =================== VIDEO =================== */
+const videos = [
+  {
+    id: 1,
+    src: "https://www.youtube.com/embed/Q61c6mxmggE",
+    title: "Jacob Robinson Keynote",
+  },
+  {
+    id: 2,
+    src: "https://www.youtube.com/embed/viB-VRHYC2c",
+    title: "Jacob Robinson Talk",
+  },
+];
+
 function Video() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const prevVideo = () => {
+    setActiveIndex((prev) => (prev === 0 ? videos.length - 1 : prev - 1));
+  };
+
+  const nextVideo = () => {
+    setActiveIndex((prev) => (prev === videos.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <section id="video" className="mx-auto max-w-5xl px-6 py-20">
       <motion.div
@@ -551,18 +575,61 @@ function Video() {
         <motion.h2 variants={fadeSlow} className="text-4xl font-bold">
           Watch Jacob in Action
         </motion.h2>
-        <motion.div
-          variants={fade}
-          className="mt-8 aspect-video rounded-3xl overflow-hidden shadow-xl"
-        >
-          <iframe
-            src="https://www.youtube.com/embed/Q61c6mxmggE"
-            title="Jacob Robinson Keynote"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-            className="w-full h-full"
-          ></iframe>
-        </motion.div>
+
+        {/* Video Slideshow */}
+        <div className="relative mt-8">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={videos[activeIndex].id}
+              variants={fade}
+              initial="hidden"
+              animate="show"
+              exit="hidden"
+              className="aspect-video rounded-3xl overflow-hidden shadow-xl"
+            >
+              <iframe
+                src={videos[activeIndex].src}
+                title={videos[activeIndex].title}
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Left Arrow */}
+          <button
+            onClick={prevVideo}
+            aria-label="Previous video"
+            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-3 shadow-lg backdrop-blur transition hover:bg-white"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+
+          {/* Right Arrow */}
+          <button
+            onClick={nextVideo}
+            aria-label="Next video"
+            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-3 shadow-lg backdrop-blur transition hover:bg-white"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+
+          {/* Dots */}
+          <div className="mt-4 flex justify-center gap-3">
+            {videos.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`h-3 w-3 rounded-full transition-all ${
+                  activeIndex === index
+                    ? "bg-black scale-110"
+                    : "bg-gray-300 hover:bg-gray-400"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
       </motion.div>
     </section>
   );
@@ -579,6 +646,9 @@ function Gallery() {
     "jacob_gallery6.jpeg",
     "jacob_gallery7.jpeg",
     "jacob_gallery8.jpeg",
+    "jacob_gallery9.jpeg",
+    "jacob_gallery10.jpeg",
+    "jacob_gallery11.jpeg",
   ];
 
   const [index, setIndex] = useState(0);
